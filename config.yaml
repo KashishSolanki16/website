@@ -10,7 +10,7 @@ params:
     subtitle: |-
       A RESPONSIVE SITE TEMPLATE DESIGNED BY HTML5 UP
       AND RELEASED UNDER THE CREATIVE COMMONS.
-    title: Hi, my name is Kashish Solanki!
+    title: HI I AM KASHISH! 
   blog: {}
   contact:
     address:
@@ -84,7 +84,7 @@ params:
       - image: pic01.jpg
         subtitle: Ipsum Dolor Sit Amet
         title: Aliquam
-        url: blogs/aliquam
+        url: blogs/kashish
       - image: pic02.jpg
         subtitle: Feugiat Amet Tempus
         title: Tempus
