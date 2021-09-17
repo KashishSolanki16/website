@@ -8,28 +8,27 @@ params:
   banner:
     buttonText: Get Started
     subtitle: |-
-      A RESPONSIVE SITE TEMPLATE DESIGNED BY HTML5 UP
-      AND RELEASED UNDER THE CREATIVE COMMONS.
-    title: HI I AM KASHISH! 
+      Currently reading for Masters in Analytics and Management at the London Business School. 
+    title: Hi, I am Kashish and welcome to my website!  
   blog: {}
   contact:
     address:
-      - city: City, ST 00000
-        country: Country
-        street: Street
-        title: Address
+      - city: London, NW1 6EW
+        country: United Kingdom
+        street: Westminister
+        title: 38 Marys Court, 4 Palgrave Gardens
     buttonClear: Clear
     buttonSend: Send message
     email:
-      - email: example@domain.com
+      - email: ksolanki.mam2022@london.edu
         title: Email
     enable: yes
     phone:
-      - phone: (000) 000-0000 x1234
+      - phone: (000) 7878761401
         title: Phone
   custom_css: []
   custom_js: []
-  description: Your description
+  description: I am a 21 year old recent graudate looking to work at the intersection of tech, data and consulting.
   error404:
     heading: Page couldn't be found
     text: Please visit [this page](/)
@@ -82,20 +81,20 @@ params:
     enable: yes
     showcase:
       - image: pic01.jpg
-        subtitle: Ipsum Dolor Sit Amet
-        title: Aliquam
+        subtitle: Here's a thing or two about me!
+        title: About Me
         url: blogs/kashish
       - image: pic02.jpg
-        subtitle: Feugiat Amet Tempus
-        title: Tempus
+        subtitle: Past Work Experience and Future Next Steps
+        title: Work Experience
         url: blogs/tempus
       - image: pic03.jpg
-        subtitle: Lorem Etiam Nullam
-        title: Magna
+        subtitle: Projects I have worked on
+        title: Projects
         url: blogs/magna
       - image: pic04.jpg
         subtitle: Nisl Sed Aliquam
-        title: Ipsum
+        title: What is different about me? 
         url: blogs/ipsum
       - image: pic05.jpg
         subtitle: Ipsum Dolor Sit Amet
@@ -108,11 +107,6 @@ params:
   two:
     buttonText: Get Started
     enable: yes
-    subtitle: "Nullam et orci eu lorem consequat tincidunt vivamus et sagittis libero.
-      \n    Mauris aliquet magna magna sed nunc rhoncus pharetra. \n    Pellentesque
-      condimentum sem. In efficitur ligula tate urna. Maecenas laoreet massa vel lacinia
-      pellentesque lorem ipsum dolor. \n    Nullam et orci eu lorem consequat tincidunt.
-      Vivamus et sagittis libero.\n    Mauris aliquet magna magna sed nunc rhoncus
-      amet pharetra et feugiat tempus."
-    title: Massa libero
+    subtitle: "I love myself"
+    title: Kashish Solanki
     url: blogs
