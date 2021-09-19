@@ -1,15 +1,15 @@
 baseURL: https://kashishsolanki.netlify.app/
 languageCode: en-us
-title: Forty
+title: Kashish Solanki
 theme: forty
 googleAnalytics: ''
 disqusShortname: ''
 params:
   banner:
-    buttonText: Get Started
+    buttonText: Know More About Me
     subtitle: |-
-      Currently reading for Masters in Analytics and Management at the London Business School. 
-    title: Hi, I am Kashish and welcome to my website!  
+      Masters in Analytics and Management at the London Business School
+    title: Kashish Yudhviram Solanki
   blog: {}
   contact:
     address:
@@ -28,28 +28,19 @@ params:
         title: Phone
   custom_css: []
   custom_js: []
-  description: I am a 21 year old recent graudate looking to work at the intersection of tech, data and consulting.
+  description: 
   error404:
     heading: Page couldn't be found
     text: Please visit [this page](/)
   favicon: favicon.ico
   footer:
-    copyright: Company Name
+    copyright: Kashish Yudhviram Solanki
     enable: yes
     quicklinks:
       - alt: HTML5 UP
         text: 'Design: '
         url: https://www.html5up.net
     social:
-      - icon: fa-twitter
-        label: Twitter
-        url: https://www.twitter.com
-      - icon: fa-facebook
-        label: Facebook
-        url: https://www.facebook.com
-      - icon: fa-instagram
-        label: Instagram
-        url: https://www.instagram.com
       - icon: fa-github
         label: GitHub
         url: https://www.github.com
@@ -57,56 +48,53 @@ params:
         label: LinkedIn
         url: https://www.linkedin.com
   image: ''
-  name: Your name
+  name: Kashish Solanki
   navigation:
     button1:
-      - name: Get Started
+      - name: Explore
         url: blogs
-    button2:
-      - name: Log In
-        url: '#'
     links:
       - name: Home
         url: '#'
-      - name: Blogs
-        url: blogs
-      - name: Generic Blog
-        url: blogs/ipsum
-      - name: Elements
-        url: elements.html
+      - name: About Me
+        url: blogs/kashish
     menu: Menu
-    subtitle: By HTML5 Up
-    title: Forty
+    subtitle: Portfolio Website
+    title: Kashish Solanki
   tiles:
     enable: yes
     showcase:
-      - image: pic01.jpg
-        subtitle: Here's a thing or two about me!
+      - image: pic01.JPG
+        subtitle: Say Something Nice
         title: About Me
         url: blogs/kashish
       - image: pic02.jpg
-        subtitle: Past Work Experience and Future Next Steps
-        title: Work Experience
-        url: blogs/tempus
+        subtitle: What I bring to the table
+        title: Education and Work Experience
+        url: blogs/workex
       - image: pic03.jpg
-        subtitle: Projects I have worked on
-        title: Projects
-        url: blogs/magna
+        subtitle: Travel | Formula One | Freestyle Dancing | Piano
+        title: Hobbies and Interests
+        url: blogs/hobbies
       - image: pic04.jpg
-        subtitle: Nisl Sed Aliquam
-        title: What is different about me? 
-        url: blogs/ipsum
+        subtitle: Analytics Project 1
+        title: Dataset
+        url: blogs/project1
       - image: pic05.jpg
-        subtitle: Ipsum Dolor Sit Amet
+        subtitle: Analytics Project 2
         title: Consequat
-        url: blogs/ipsum
+        url: blogs/project2
       - image: pic06.jpg
         subtitle: Feugiat Amet Tempus
-        title: Etiam
-        url: blogs/ipsum
+        title: Project 3
+        url: blogs/project3
+      - image: 
+        subtitle: Hello
+        title: Publication
+        url: blogs/pub
   two:
-    buttonText: Get Started
+    buttonText: Resume
     enable: yes
-    subtitle: "I love myself"
-    title: Kashish Solanki
-    url: blogs
+    subtitle: 
+    title: Here's my resume for your reference
+    url: https://drive.google.com/file/d/1t30QDmrlnLumjmsS-M-iOweIYulPnc_U/view?usp=sharing

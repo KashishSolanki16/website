@@ -5,9 +5,8 @@ categories:
 date: "2017-10-31T22:42:51-05:00"
 description: "It has been a pleasure working with you"
 draft: false
-image: pic07.jpg
+image: 
 keywords: ""
-slug: kashish
-title: About Me
+slug: project3
+title: Project 3
 ---
-Write about yourself
