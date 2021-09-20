@@ -1,0 +1,219 @@
+---
+title: "Climate Data Analysis"
+date: '2017-10-31T22:42:51-05:00'
+description: It has been a pleasure working with you
+draft: no
+image: null
+keywords: ''
+slug: project3
+categories:
+- ''
+- ''
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<div id="climate-change-and-temperature-anomalies" class="section level1">
+<h1>Climate change and temperature anomalies</h1>
+<p>If we wanted to study climate change, we can find data on the <em>Combined Land-Surface Air and Sea-Surface Water Temperature Anomalies</em> in the Northern Hemisphere at <a href="https://data.giss.nasa.gov/gistemp">NASA’s Goddard Institute for Space Studies</a>. The <a href="https://data.giss.nasa.gov/gistemp/tabledata_v4/NH.Ts+dSST.txt">tabular data of temperature anomalies can be found here</a>.</p>
+<p>The period between 1951 - 1980 is our reference in defining temperature anomalies.</p>
+<div id="loading-the-data-set" class="section level2">
+<h2>Loading the data set</h2>
+<pre class="r"><code>weather &lt;- 
+  read_csv(&quot;https://data.giss.nasa.gov/gistemp/tabledata_v4/NH.Ts+dSST.csv&quot;, 
+           skip = 1,  #real data table only starts in Row 2, so we need to skip one row. 
+           na = &quot;***&quot;) </code></pre>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   Year = col_double(),
+##   Jan = col_double(),
+##   Feb = col_double(),
+##   Mar = col_double(),
+##   Apr = col_double(),
+##   May = col_double(),
+##   Jun = col_double(),
+##   Jul = col_double(),
+##   Aug = col_double(),
+##   Sep = col_double(),
+##   Oct = col_double(),
+##   Nov = col_double(),
+##   Dec = col_double(),
+##   `J-D` = col_double(),
+##   `D-N` = col_double(),
+##   DJF = col_double(),
+##   MAM = col_double(),
+##   JJA = col_double(),
+##   SON = col_double()
+## )</code></pre>
+<p>For each month and year, the data frame shows the deviation of temperature from the normal (expected).</p>
+</div>
+<div id="isolating-the-columns-we-need-and-tidy-data" class="section level2">
+<h2>Isolating the columns we need and tidy data</h2>
+<pre class="r"><code>tidyweather &lt;- weather %&gt;% 
+  select(c(&quot;Year&quot;, &quot;Jan&quot;, &quot;Feb&quot;, &quot;Mar&quot;, &quot;Apr&quot;, &quot;May&quot;, &quot;Jun&quot;, &quot;Jul&quot;, &quot;Aug&quot;, &quot;Sep&quot;, &quot;Oct&quot;, &quot;Nov&quot;, &quot;Dec&quot;)) %&gt;%
+  pivot_longer(cols=c(&#39;Jan&#39;, &#39;Feb&#39;, &#39;Mar&#39;, &#39;Apr&#39;, &#39;May&#39;, &#39;Jun&#39;, &#39;Jul&#39;, &#39;Aug&#39;, &#39;Sep&#39;, &#39;Oct&#39;, &#39;Nov&#39;, &#39;Dec&#39;),
+               names_to = &quot;Month&quot;, values_to = &quot;Delta&quot;) </code></pre>
+</div>
+<div id="plotting-information" class="section level2">
+<h2>Plotting information</h2>
+<pre class="r"><code>tidyweather &lt;- tidyweather %&gt;%
+  mutate(date = ymd(paste(as.character(Year), Month, &quot;1&quot;)),
+         Month = month(date, label=TRUE),
+         Year = year(date))</code></pre>
+<pre class="r"><code>ggplot(tidyweather, aes(x=date, y=Delta))+
+  geom_point(size = 0.5)+
+  geom_smooth(color=&quot;red&quot;) +
+  theme_bw() +
+  labs (
+    title = &quot;Weather Anomalies&quot;,
+    subtitle = &quot;Temperature progression over time&quot;,
+    x = &quot;Year&quot;,
+    y = &quot;Delta in T (°C)&quot;
+  )+
+  # scale_x_date(date_breaks = seq(min(tidyweather$date), max(tidyweather$date), by = 8300))
+     scale_x_date(date_labels = &quot;%Y&quot;, date_breaks = &quot;10 years&quot;)</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;gam&#39; and formula &#39;y ~ s(x, bs = &quot;cs&quot;)&#39;</code></pre>
+<pre><code>## Warning: Removed 4 rows containing non-finite values (stat_smooth).</code></pre>
+<pre><code>## Warning: Removed 4 rows containing missing values (geom_point).</code></pre>
+<p><img src="/blogs/blog7_files/figure-html/graphDeltaWeather-1.png" width="1056" /></p>
+<p>Scatter plot for each month:</p>
+<pre class="r"><code>tidyweather$Month &lt;- factor(tidyweather$Month, 
+                            levels = c(&quot;Jan&quot;, &quot;Feb&quot;, &quot;Mar&quot;, &quot;Apr&quot;, &quot;May&quot;, &quot;Jun&quot;, &quot;Jul&quot;, &quot;Aug&quot;, &quot;Sep&quot;, &quot;Oct&quot;, &quot;Nov&quot;, &quot;Dec&quot;)) #so that the facet wrap shows according to months
+
+ggplot(tidyweather, aes(x=date, y=Delta))+
+  geom_point(size = 0.3)+
+  geom_smooth(color=&quot;red&quot;) +
+  theme_bw() +
+  facet_wrap(vars(Month)) +
+  labs (
+     title = &quot;Weather Anomalies broken down by months&quot;,
+    subtitle = &quot;Temperature progression over time&quot;,
+    x = &quot;Year&quot;,
+    y = &quot;Delta in T (°C)&quot;
+  )</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<pre><code>## Warning: Removed 4 rows containing non-finite values (stat_smooth).</code></pre>
+<pre><code>## Warning: Removed 4 rows containing missing values (geom_point).</code></pre>
+<p><img src="/blogs/blog7_files/figure-html/facet_wrap-1.png" width="1056" /></p>
+<p><em>Based on our analysis, the effect of increasing temperature seems to be constant throughout the year. A more obvious indicator would be the Year instead - the effect of increasing temperature is more pronounced after the period between 1951-1980 as we can see a steep increase in the graph.</em></p>
+</div>
+<div id="grouping-the-data-into-time-periods" class="section level2">
+<h2>Grouping the data into time periods</h2>
+<pre class="r"><code>comparison &lt;- tidyweather %&gt;% 
+  filter(Year&gt;= 1881) %&gt;%     #remove years prior to 1881
+  #create new variable &#39;interval&#39;, and assign values based on criteria below:
+  mutate(Interval = case_when(
+    Year %in% c(1881:1920) ~ &quot;1881-1920&quot;,
+    Year %in% c(1921:1950) ~ &quot;1921-1950&quot;,
+    Year %in% c(1951:1980) ~ &quot;1951-1980&quot;,
+    Year %in% c(1981:2010) ~ &quot;1981-2010&quot;,
+    TRUE ~ &quot;2011-present&quot;
+  ))</code></pre>
+</div>
+<div id="distribution-of-monthly-deviations" class="section level2">
+<h2>Distribution of monthly deviations</h2>
+<pre class="r"><code>ggplot(comparison, aes(x=Delta, fill=Interval))+
+  geom_density(alpha=0.2) +   #density plot with transparency set to 20%
+  theme_bw() +                #theme
+  labs (
+    title = &quot;Density Plot for Monthly Temperature Anomalies&quot;,
+    y     = &quot;Density&quot;,         #changing y-axis label to sentence case
+    x = &quot;Delta in T (°C)&quot;
+  )</code></pre>
+<pre><code>## Warning: Removed 4 rows containing non-finite values (stat_density).</code></pre>
+<p><img src="/blogs/blog7_files/figure-html/density_plot-1.png" width="1056" /></p>
+</div>
+<div id="average-annual-anomalies" class="section level2">
+<h2>Average annual anomalies</h2>
+<pre class="r"><code>#creating yearly averages
+average_annual_anomaly &lt;- tidyweather %&gt;% 
+  group_by(Year) %&gt;%   
+  summarise(annual_average_delta = mean(Delta, na.rm=TRUE))
+
+#plotting the data:
+ggplot(average_annual_anomaly, aes(x=Year, y= annual_average_delta))+
+  geom_point(size = 0.8)+
+  geom_smooth(colour = &quot;red&quot;) +
+  theme_bw() +
+labs (
+     title = &quot;Average Yearly Temperature Anomaly&quot;,
+    subtitle = &quot;Temperature progression over time&quot;,
+    x = &quot;Year&quot;,
+    y = &quot;Delta in T (°C)&quot;
+  )+
+  scale_x_continuous(n.breaks = 20)</code></pre>
+<pre><code>## `geom_smooth()` using method = &#39;loess&#39; and formula &#39;y ~ x&#39;</code></pre>
+<p><img src="/blogs/blog7_files/figure-html/averaging-1.png" width="1056" /></p>
+</div>
+<div id="confidence-interval-for-delta" class="section level2">
+<h2>Confidence Interval for <code>delta</code></h2>
+<p><a href="https://earthobservatory.nasa.gov/world-of-change/decadaltemp.php">NASA points out on their website</a> that</p>
+<blockquote>
+<p>A one-degree global change is significant because it takes a vast amount of heat to warm all the oceans, atmosphere, and land by that much. In the past, a one- to two-degree drop was all it took to plunge the Earth into the Little Ice Age.</p>
+</blockquote>
+<div id="confidence-interval-for-delta-formula" class="section level3">
+<h3>Confidence Interval for <code>delta</code> (Formula)</h3>
+<pre class="r"><code>formula_CI &lt;- comparison %&gt;% 
+  filter(Interval == &quot;2011-present&quot;) %&gt;%
+  summarize(median_delta = median(Delta, na.rm=TRUE),
+            mean_delta = mean(Delta, na.rm=TRUE), 
+            sd_delta = sd(Delta, na.rm=TRUE), 
+            count = n(), 
+            t_critical = qt(0.975, count -1),
+            se_delta = sd_delta/sqrt(count), 
+            margin_of_error = t_critical * se_delta,
+            lower_CI_delta = mean_delta - margin_of_error,
+            upper_CI_delta = mean_delta + margin_of_error
+  )
+            
+#print out formula_CI
+formula_CI</code></pre>
+<pre><code>## # A tibble: 1 x 9
+##   median_delta mean_delta sd_delta count t_critical se_delta margin_of_error
+##          &lt;dbl&gt;      &lt;dbl&gt;    &lt;dbl&gt; &lt;int&gt;      &lt;dbl&gt;    &lt;dbl&gt;           &lt;dbl&gt;
+## 1         1.04       1.06    0.274   132       1.98   0.0239          0.0473
+## # … with 2 more variables: lower_CI_delta &lt;dbl&gt;, upper_CI_delta &lt;dbl&gt;</code></pre>
+</div>
+<div id="confidence-interval-for-delta-bootstrapping" class="section level3">
+<h3>Confidence Interval for <code>delta</code> (Bootstrapping)</h3>
+<pre class="r"><code>library(infer)
+
+set.seed(1234)
+
+boot_delta &lt;- comparison %&gt;% 
+  filter(Interval == &quot;2011-present&quot;) %&gt;% 
+  specify(response = Delta) %&gt;% 
+  generate(reps = 1000, type = &quot;bootstrap&quot;) %&gt;% 
+  calculate(stat=&quot;mean&quot;) </code></pre>
+<pre><code>## Warning: Removed 4 rows containing missing values.</code></pre>
+<pre class="r"><code>percentile_ci &lt;- boot_delta %&gt;%  
+  get_ci(level = 0.95, type = &quot;percentile&quot;)
+
+#print out bootstrap_CI
+percentile_ci</code></pre>
+<pre><code>## # A tibble: 1 x 2
+##   lower_ci upper_ci
+##      &lt;dbl&gt;    &lt;dbl&gt;
+## 1     1.02     1.11</code></pre>
+</div>
+<div id="comparison-of-confidence-intervals" class="section level3">
+<h3>Comparison of Confidence Intervals</h3>
+<pre class="r"><code>visualize(boot_delta) +
+  shade_ci(endpoints = percentile_ci) + 
+  geom_vline(xintercept = formula_CI$lower_CI_delta, linetype = &quot;dashed&quot;, colour = &quot;red&quot;, size = 1) +
+  geom_vline(xintercept = formula_CI$upper_CI_delta,linetype = &quot;dashed&quot;, colour = &quot;red&quot;, size = 1) + 
+  theme_bw() +
+  labs(
+    title = &quot;Bootstrap CI for Average Annual Delta since 2011&quot;, 
+    subtitle = &quot;Fomula CI shown with dashed red lines&quot;,
+    x = &quot;Delta T (°C)&quot;,
+    y = &quot;Count&quot;
+    
+  )</code></pre>
+<p><img src="/blogs/blog7_files/figure-html/visualizing_bootstrap-1.png" width="1056" /></p>
+<p><em>Based on our analysis, the 95% confidence interval (CI) for the average annual delta since 2011 was calculated as (1.01, 1.11). This means that we can be 95% confident that the average annual delta falls within 1.01 and 1.11. We constructed the CI using the formula method and using a bootstrap simulation, both method gives us a very similar width - the shaded area is the CI calculated using a bootstrap simulation and the range between the dotted lines is the CI calculated using the formula.</em></p>
+</div>
+</div>
+</div>

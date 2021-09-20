@@ -1,0 +1,241 @@
+---
+categories:
+- ""
+- ""
+date: "2017-10-31T22:42:51-05:00"
+description: "It has been a pleasure working with you"
+draft: false
+image: 
+keywords: ""
+slug: project2
+title: London Fire Brigade
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<p><a href="https://data.london.gov.uk/dataset/animal-rescue-incidents-attended-by-lfb">The London Fire Brigade</a> attends a range of non-fire incidents (which we call ‘special services’). These ‘special services’ include assistance to animals that may be trapped or in distress. The data is provided from January 2009 and is updated monthly. A range of information is supplied for each incident including some location information (postcode, borough, ward), as well as the data/time of the incidents. We do not routinely record data about animal deaths or injuries.</p>
+<p>Please note that any cost included is a notional cost calculated based on the length of time rounded up to the nearest hour spent by Pump, Aerial and FRU appliances at the incident and charged at the current Brigade hourly rate.</p>
+<pre class="r"><code>url &lt;- &quot;https://data.london.gov.uk/download/animal-rescue-incidents-attended-by-lfb/8a7d91c2-9aec-4bde-937a-3998f4717cd8/Animal%20Rescue%20incidents%20attended%20by%20LFB%20from%20Jan%202009.csv&quot;
+
+animal_rescue &lt;- read_csv(url,
+                          locale = locale(encoding = &quot;CP1252&quot;)) %&gt;% 
+  janitor::clean_names()
+
+
+glimpse(animal_rescue)</code></pre>
+<pre><code>## Rows: 7,772
+## Columns: 31
+## $ incident_number               &lt;dbl&gt; 139091, 275091, 2075091, 2872091, 355309…
+## $ date_time_of_call             &lt;chr&gt; &quot;01/01/2009 03:01&quot;, &quot;01/01/2009 08:51&quot;, …
+## $ cal_year                      &lt;dbl&gt; 2009, 2009, 2009, 2009, 2009, 2009, 2009…
+## $ fin_year                      &lt;chr&gt; &quot;2008/09&quot;, &quot;2008/09&quot;, &quot;2008/09&quot;, &quot;2008/0…
+## $ type_of_incident              &lt;chr&gt; &quot;Special Service&quot;, &quot;Special Service&quot;, &quot;S…
+## $ pump_count                    &lt;chr&gt; &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, …
+## $ pump_hours_total              &lt;chr&gt; &quot;2&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, &quot;1&quot;, …
+## $ hourly_notional_cost          &lt;dbl&gt; 255, 255, 255, 255, 255, 255, 255, 255, …
+## $ incident_notional_cost        &lt;chr&gt; &quot;510&quot;, &quot;255&quot;, &quot;255&quot;, &quot;255&quot;, &quot;255&quot;, &quot;255&quot;…
+## $ final_description             &lt;chr&gt; &quot;Redacted&quot;, &quot;Redacted&quot;, &quot;Redacted&quot;, &quot;Red…
+## $ animal_group_parent           &lt;chr&gt; &quot;Dog&quot;, &quot;Fox&quot;, &quot;Dog&quot;, &quot;Horse&quot;, &quot;Rabbit&quot;, …
+## $ originof_call                 &lt;chr&gt; &quot;Person (land line)&quot;, &quot;Person (land line…
+## $ property_type                 &lt;chr&gt; &quot;House - single occupancy&quot;, &quot;Railings&quot;, …
+## $ property_category             &lt;chr&gt; &quot;Dwelling&quot;, &quot;Outdoor Structure&quot;, &quot;Outdoo…
+## $ special_service_type_category &lt;chr&gt; &quot;Other animal assistance&quot;, &quot;Other animal…
+## $ special_service_type          &lt;chr&gt; &quot;Animal assistance involving livestock -…
+## $ ward_code                     &lt;chr&gt; &quot;E05011467&quot;, &quot;E05000169&quot;, &quot;E05000558&quot;, &quot;…
+## $ ward                          &lt;chr&gt; &quot;Crystal Palace &amp; Upper Norwood&quot;, &quot;Woods…
+## $ borough_code                  &lt;chr&gt; &quot;E09000008&quot;, &quot;E09000008&quot;, &quot;E09000029&quot;, &quot;…
+## $ borough                       &lt;chr&gt; &quot;Croydon&quot;, &quot;Croydon&quot;, &quot;Sutton&quot;, &quot;Hilling…
+## $ stn_ground_name               &lt;chr&gt; &quot;Norbury&quot;, &quot;Woodside&quot;, &quot;Wallington&quot;, &quot;Ru…
+## $ uprn                          &lt;chr&gt; &quot;NULL&quot;, &quot;NULL&quot;, &quot;NULL&quot;, &quot;100021491149&quot;, …
+## $ street                        &lt;chr&gt; &quot;Waddington Way&quot;, &quot;Grasmere Road&quot;, &quot;Mill…
+## $ usrn                          &lt;chr&gt; &quot;20500146&quot;, &quot;NULL&quot;, &quot;NULL&quot;, &quot;21401484&quot;, …
+## $ postcode_district             &lt;chr&gt; &quot;SE19&quot;, &quot;SE25&quot;, &quot;SM5&quot;, &quot;UB9&quot;, &quot;RM3&quot;, &quot;RM…
+## $ easting_m                     &lt;chr&gt; &quot;NULL&quot;, &quot;534785&quot;, &quot;528041&quot;, &quot;504689&quot;, &quot;N…
+## $ northing_m                    &lt;chr&gt; &quot;NULL&quot;, &quot;167546&quot;, &quot;164923&quot;, &quot;190685&quot;, &quot;N…
+## $ easting_rounded               &lt;dbl&gt; 532350, 534750, 528050, 504650, 554650, …
+## $ northing_rounded              &lt;dbl&gt; 170050, 167550, 164950, 190650, 192350, …
+## $ latitude                      &lt;chr&gt; &quot;NULL&quot;, &quot;51.39095371&quot;, &quot;51.36894086&quot;, &quot;5…
+## $ longitude                     &lt;chr&gt; &quot;NULL&quot;, &quot;-0.064166887&quot;, &quot;-0.161985191&quot;, …</code></pre>
+<p>One of the more useful things one can do with any data set is quick counts, namely to see how many observations fall within one category. For instance, if we wanted to count the number of incidents by year, we would either use <code>group_by()... summarise()</code> or, simply <a href="https://dplyr.tidyverse.org/reference/count.html"><code>count()</code></a></p>
+<pre class="r"><code>animal_rescue %&gt;% 
+  dplyr::group_by(cal_year) %&gt;% 
+  summarise(count=n())</code></pre>
+<pre><code>## # A tibble: 13 x 2
+##    cal_year count
+##       &lt;dbl&gt; &lt;int&gt;
+##  1     2009   568
+##  2     2010   611
+##  3     2011   620
+##  4     2012   603
+##  5     2013   585
+##  6     2014   583
+##  7     2015   540
+##  8     2016   604
+##  9     2017   539
+## 10     2018   610
+## 11     2019   604
+## 12     2020   758
+## 13     2021   547</code></pre>
+<pre class="r"><code>animal_rescue %&gt;% 
+  count(cal_year, name=&quot;count&quot;)</code></pre>
+<pre><code>## # A tibble: 13 x 2
+##    cal_year count
+##       &lt;dbl&gt; &lt;int&gt;
+##  1     2009   568
+##  2     2010   611
+##  3     2011   620
+##  4     2012   603
+##  5     2013   585
+##  6     2014   583
+##  7     2015   540
+##  8     2016   604
+##  9     2017   539
+## 10     2018   610
+## 11     2019   604
+## 12     2020   758
+## 13     2021   547</code></pre>
+<p>Let us try to see how many incidents we have by animal group. Again, we can do this either using group_by() and summarise(), or by using count()</p>
+<pre class="r"><code>animal_rescue %&gt;% 
+  group_by(animal_group_parent) %&gt;% 
+  
+  #group_by and summarise will produce a new column with the count in each animal group
+  summarise(count = n()) %&gt;% 
+  
+  # mutate adds a new column; here we calculate the percentage
+  mutate(percent = round(100*count/sum(count),2)) %&gt;% 
+  
+  # arrange() sorts the data by percent. Since the default sorting is min to max and we would like to see it sorted
+  # in descending order (max to min), we use arrange(desc()) 
+  arrange(desc(percent))</code></pre>
+<pre><code>## # A tibble: 28 x 3
+##    animal_group_parent              count percent
+##    &lt;chr&gt;                            &lt;int&gt;   &lt;dbl&gt;
+##  1 Cat                               3736   48.1 
+##  2 Bird                              1611   20.7 
+##  3 Dog                               1213   15.6 
+##  4 Fox                                366    4.71
+##  5 Unknown - Domestic Animal Or Pet   199    2.56
+##  6 Horse                              195    2.51
+##  7 Deer                               132    1.7 
+##  8 Unknown - Wild Animal               93    1.2 
+##  9 Squirrel                            66    0.85
+## 10 Unknown - Heavy Livestock Animal    50    0.64
+## # … with 18 more rows</code></pre>
+<pre class="r"><code>animal_rescue %&gt;% 
+  
+  #count does the same thing as group_by and summarise
+  # name = &quot;count&quot; will call the column with the counts &quot;count&quot; ( exciting, I know)
+  # and &#39;sort=TRUE&#39; will sort them from max to min
+  count(animal_group_parent, name=&quot;count&quot;, sort=TRUE) %&gt;% 
+  mutate(percent = round(100*count/sum(count),2))</code></pre>
+<pre><code>## # A tibble: 28 x 3
+##    animal_group_parent              count percent
+##    &lt;chr&gt;                            &lt;int&gt;   &lt;dbl&gt;
+##  1 Cat                               3736   48.1 
+##  2 Bird                              1611   20.7 
+##  3 Dog                               1213   15.6 
+##  4 Fox                                366    4.71
+##  5 Unknown - Domestic Animal Or Pet   199    2.56
+##  6 Horse                              195    2.51
+##  7 Deer                               132    1.7 
+##  8 Unknown - Wild Animal               93    1.2 
+##  9 Squirrel                            66    0.85
+## 10 Unknown - Heavy Livestock Animal    50    0.64
+## # … with 18 more rows</code></pre>
+<p>Do you see anything strange in these tables?
+Some animal group parents are repetitive and may also overlap giving a skewed sense of the data.</p>
+<p>Finally, let us have a look at the notional cost for rescuing each of these animals. As the LFB says,</p>
+<blockquote>
+<p>Please note that any cost included is a notional cost calculated based on the length of time rounded up to the nearest hour spent by Pump, Aerial and FRU appliances at the incident and charged at the current Brigade hourly rate.</p>
+</blockquote>
+<p>There is two things we will do:</p>
+<ol style="list-style-type: decimal">
+<li>Calculate the mean and median <code>incident_notional_cost</code> for each <code>animal_group_parent</code></li>
+<li>Plot a boxplot to get a feel for the distribution of <code>incident_notional_cost</code> by <code>animal_group_parent</code>.</li>
+</ol>
+<p>Before we go on, however, we need to fix <code>incident_notional_cost</code> as it is stored as a <code>chr</code>, or character, rather than a number.</p>
+<pre class="r"><code># what type is variable incident_notional_cost from dataframe `animal_rescue`
+typeof(animal_rescue$incident_notional_cost)</code></pre>
+<pre><code>## [1] &quot;character&quot;</code></pre>
+<pre class="r"><code># readr::parse_number() will convert any numerical values stored as characters into numbers
+animal_rescue &lt;- animal_rescue %&gt;% 
+
+  # we use mutate() to use the parse_number() function and overwrite the same variable
+  mutate(incident_notional_cost = parse_number(incident_notional_cost))
+
+# incident_notional_cost from dataframe `animal_rescue` is now &#39;double&#39; or numeric
+typeof(animal_rescue$incident_notional_cost)</code></pre>
+<pre><code>## [1] &quot;double&quot;</code></pre>
+<p>Now that incident_notional_cost is numeric, let us quickly calculate summary statistics for each animal group.</p>
+<pre class="r"><code>animal_rescue %&gt;% 
+  
+  # group by animal_group_parent
+  group_by(animal_group_parent) %&gt;% 
+  
+  # filter resulting data, so each group has at least 6 observations
+  filter(n()&gt;6) %&gt;% 
+  
+  # summarise() will collapse all values into 3 values: the mean, median, and count  
+  # we use na.rm=TRUE to make sure we remove any NAs, or cases where we do not have the incident cos
+  summarise(mean_incident_cost = mean (incident_notional_cost, na.rm=TRUE),
+            median_incident_cost = median (incident_notional_cost, na.rm=TRUE),
+            sd_incident_cost = sd (incident_notional_cost, na.rm=TRUE),
+            min_incident_cost = min (incident_notional_cost, na.rm=TRUE),
+            max_incident_cost = max (incident_notional_cost, na.rm=TRUE),
+            count = n()) %&gt;% 
+  
+  # sort the resulting data in descending order. You choose whether to sort by count or mean cost.
+  arrange(mean_incident_cost)</code></pre>
+<pre><code>## # A tibble: 16 x 7
+##    animal_group_parent      mean_incident_co… median_incident_… sd_incident_cost
+##    &lt;chr&gt;                                &lt;dbl&gt;             &lt;dbl&gt;            &lt;dbl&gt;
+##  1 Rabbit                                309.               326             32.2
+##  2 Ferret                                309.               333             39.4
+##  3 Squirrel                              313.               326             57.1
+##  4 Hamster                               315.               290             95.0
+##  5 cat                                   324.               290             94.1
+##  6 Unknown - Domestic Anim…              326.               295            117. 
+##  7 Cat                                   343.               298            160. 
+##  8 Bird                                  344.               328            135. 
+##  9 Dog                                   347.               298            169. 
+## 10 Snake                                 356.               339            105. 
+## 11 Fox                                   373.               328            206. 
+## 12 Unknown - Heavy Livesto…              374.               260            263. 
+## 13 Unknown - Wild Animal                 416.               333            324. 
+## 14 Deer                                  417.               333            286. 
+## 15 Cow                                   634.               520            475. 
+## 16 Horse                                 740.               596            541. 
+## # … with 3 more variables: min_incident_cost &lt;dbl&gt;, max_incident_cost &lt;dbl&gt;,
+## #   count &lt;int&gt;</code></pre>
+<p>Compare the mean and the median for each animal group. What do you think this is telling us?
+Anything else that stands out? Any outliers?</p>
+<p>While for most animal groups the mean and median costs are close to each other, none represent equal mean and median. This may be essentially because mean is affected by outliers. For instance, the category ‘Horse’ has a minimum cost of 255 and maximum of 3480, therefore the mean is extremely high and differs from the median significantly. Both these measures of central tendency differ as median shows the middle value of dataset and mean is affected algebraically.</p>
+<p>Another observation could be that for two repetitive categories “Cat” and “cat” the true mean / median cost will be when the categories are grouped together such that the sample is more representative.</p>
+<p>Finally, let us plot a few plots that show the distribution of incident_cost for each animal group.</p>
+<pre class="r"><code># base_plot
+base_plot &lt;- animal_rescue %&gt;% 
+  group_by(animal_group_parent) %&gt;% 
+  filter(n()&gt;6) %&gt;% 
+  ggplot(aes(x=incident_notional_cost))+
+  facet_wrap(~animal_group_parent, scales = &quot;free&quot;)+
+  theme_bw()
+
+base_plot + geom_histogram()</code></pre>
+<p><img src="/blogs/blog6_files/figure-html/plots_on_incident_cost_by_animal_group-1.png" width="672" /></p>
+<pre class="r"><code>base_plot + geom_density()</code></pre>
+<p><img src="/blogs/blog6_files/figure-html/plots_on_incident_cost_by_animal_group-2.png" width="672" /></p>
+<pre class="r"><code>base_plot + geom_boxplot()</code></pre>
+<p><img src="/blogs/blog6_files/figure-html/plots_on_incident_cost_by_animal_group-3.png" width="672" /></p>
+<pre class="r"><code>base_plot + stat_ecdf(geom = &quot;step&quot;, pad = FALSE) +
+  scale_y_continuous(labels = scales::percent)</code></pre>
+<p><img src="/blogs/blog6_files/figure-html/plots_on_incident_cost_by_animal_group-4.png" width="672" /></p>
+<p>Which of these four graphs do you think best communicates the variability of the <code>incident_notional_cost</code> values? Also, can you please tell some sort of story (which animals are more expensive to rescue than others, the spread of values) and speculate about the differences in the patterns.</p>
+<p>In my opinion, the box-plot best communicates the variability of the incident notional cost values. This is because it gives the interquartile range and outliers which are important metrics in this data-set. For instance, the incident notional cost for a Squirrel is represented by the box on the extreme left (250-350), however it also depicts an outlier cost of &gt;600 which might be a particular case of serious injury.</p>
+<p>The costs seem to be associated with size and frequency of incidents.</p>
+<p>The most expensive to rescue of them all are horses, with extreme outliers, as the team would require heavy and highly advanced equipment owing to the size of the horse.</p>
+<p>Cow’s have an average rescue cost of 500 and a fixed spread of values.</p>
+<p>Squirrels, Rabbits, Hamsters and Ferrets have approximately similar spread of values and average rescue cost, could be to similar due to size and nature of injuries, due to small and fragile bodies.</p>
+<p>Dogs, cats and deer have almost similar spread of values and average costs. These are often involved in road accidents and mishaps that require professional healthcare services. However, these often heal themselves on minor injuries therefore the costs may be not subsequently high. One of the reasons for many outliers in the plot of cats and dogs could be because these are pets and pet owners are willing to spend on advanced medical and rescue services.</p>
+<p>Birds have a relatively short spread of cost value possibly due to defined treatment and difficulty in rescue. However, their outlying values are high due to their complex anatomy and fragility.</p>
+<p>Finally, rescue teams and veterinary services for wild animals are specialists, providing defined treatment and may charge higher for their services. The teams would have to be well equipped to save from midst the wildlife.</p>

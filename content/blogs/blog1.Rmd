@@ -1,19 +1,39 @@
 ---
-categories:
-- ""
-- ""
-date: "2017-10-31T21:28:43-05:00"
-description: ""
-draft: false
+title: "Exploring IMDB Ratings Between Spielberg and Burton"
+date: '2017-10-31T21:28:43-05:00'
+description: ''
+draft: no
 image: pic10.jpg
-keywords: ""
+keywords: ''
 slug: project1
-title: Exploring IMDB Ratings Between Spielberg and Burton
+categories:
+- ''
+- ''
 ---
-
 # IMDB ratings: Differences between directors
 
-Recall the IMBD ratings data. I would like you to explore whether the mean IMDB rating for Steven Spielberg and Tim Burton are the same or not. I have already calculated the confidence intervals for the mean ratings of these two directors and as you can see they overlap.
+To explore whether the mean IMDB rating for Steven Spielberg and Tim Burton are the same or not. We calculate the confidence intervals for the mean ratings of these two directors and see they overlap.
+
+```{r load-libraries, echo=FALSE, message = FALSE, include=FALSE}
+library(tidyverse)  # Load ggplot2, dplyr, and all the other tidyverse packages
+library(mosaic)
+library(ggthemes)
+library(GGally)
+library(readxl)
+library(here)
+library(skimr)
+library(janitor)
+library(broom)
+library(tidyquant)
+library(infer)
+library(openintro)
+library(RSQLite)
+library(dbplyr)
+library(DBI)
+library(janitor)
+library(knitr)
+library(scales)
+```
 
 ```{r load-movies-data, fig.width=11, warning = FALSE}
 movies <- read_csv(here::here("data", "movies.csv"))
@@ -35,6 +55,7 @@ burton_spielberg <- movies %>%
 burton_spielberg
   
 ```
+**We calculate the mean, t-critical and confidence intervals for the mean ratings.**
 
 ```{r, replicating the plot, fig.width=11, warning = FALSE}
 plot <- ggplot(burton_spielberg, aes(x=mean, y=reorder(director, mean), colour = director))+
@@ -58,7 +79,9 @@ plot
   
 ```
 
-*Null Hypothesis H0: Average Rating for Spielberg - Average Rating for Burton = 0* *Alternative Hypothesis H1: Difference in Means not equal to 0.*
+**Hypothesis Testing:**
+**Null Hypothesis H0: Difference of avergae ratings of Spielberg and Burton equals 0**
+**Alternative Hypothesis H1: Difference in Means not equal to 0.**
 
 ```{r, fig.width=11, warning = FALSE}
 testrating <- movies %>% 
@@ -114,3 +137,4 @@ null_dist1 %>% visualize() +
 
 null_dist1 %>%
   get_p_value(obs_stat = obs_diff1, direction = "two_sided")
+```

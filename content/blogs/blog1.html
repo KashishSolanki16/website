@@ -1,0 +1,165 @@
+---
+title: "Exploring IMDB Ratings Between Spielberg and Burton"
+date: '2017-10-31T21:28:43-05:00'
+description: ''
+draft: no
+image: pic10.jpg
+keywords: ''
+slug: project1
+categories:
+- ''
+- ''
+---
+
+<script src="/rmarkdown-libs/header-attrs/header-attrs.js"></script>
+
+
+<div id="imdb-ratings-differences-between-directors" class="section level1">
+<h1>IMDB ratings: Differences between directors</h1>
+<p>To explore whether the mean IMDB rating for Steven Spielberg and Tim Burton are the same or not. We calculate the confidence intervals for the mean ratings of these two directors and see they overlap.</p>
+<pre class="r"><code>movies &lt;- read_csv(here::here(&quot;data&quot;, &quot;movies.csv&quot;))</code></pre>
+<pre><code>## 
+## ── Column specification ────────────────────────────────────────────────────────
+## cols(
+##   title = col_character(),
+##   genre = col_character(),
+##   director = col_character(),
+##   year = col_double(),
+##   duration = col_double(),
+##   gross = col_double(),
+##   budget = col_double(),
+##   cast_facebook_likes = col_double(),
+##   votes = col_double(),
+##   reviews = col_double(),
+##   rating = col_double()
+## )</code></pre>
+<pre class="r"><code>glimpse(movies)</code></pre>
+<pre><code>## Rows: 2,961
+## Columns: 11
+## $ title               &lt;chr&gt; &quot;Avatar&quot;, &quot;Titanic&quot;, &quot;Jurassic World&quot;, &quot;The Avenge…
+## $ genre               &lt;chr&gt; &quot;Action&quot;, &quot;Drama&quot;, &quot;Action&quot;, &quot;Action&quot;, &quot;Action&quot;, &quot;…
+## $ director            &lt;chr&gt; &quot;James Cameron&quot;, &quot;James Cameron&quot;, &quot;Colin Trevorrow…
+## $ year                &lt;dbl&gt; 2009, 1997, 2015, 2012, 2008, 1999, 1977, 2015, 20…
+## $ duration            &lt;dbl&gt; 178, 194, 124, 173, 152, 136, 125, 141, 164, 93, 1…
+## $ gross               &lt;dbl&gt; 760505847, 658672302, 652177271, 623279547, 533316…
+## $ budget              &lt;dbl&gt; 2.37e+08, 2.00e+08, 1.50e+08, 2.20e+08, 1.85e+08, …
+## $ cast_facebook_likes &lt;dbl&gt; 4834, 45223, 8458, 87697, 57802, 37723, 13485, 920…
+## $ votes               &lt;dbl&gt; 886204, 793059, 418214, 995415, 1676169, 534658, 9…
+## $ reviews             &lt;dbl&gt; 3777, 2843, 1934, 2425, 5312, 3917, 1752, 1752, 35…
+## $ rating              &lt;dbl&gt; 7.9, 7.7, 7.0, 8.1, 9.0, 6.5, 8.7, 7.5, 8.5, 7.2, …</code></pre>
+<pre class="r"><code>burton_spielberg &lt;- movies %&gt;% 
+  filter(director %in% c(&quot;Steven Spielberg&quot;, &quot;Tim Burton&quot;)) %&gt;% 
+  group_by(director) %&gt;% 
+  summarise(mean=mean(rating),
+            count=n(),
+            t_critical = qt(0.975, count-1),
+            se = sd(rating)/sqrt(count),
+            margin_of_error = t_critical*se,
+            lower_ci = mean - margin_of_error,
+            higher_ci = mean + margin_of_error)
+burton_spielberg</code></pre>
+<pre><code>## # A tibble: 2 x 8
+##   director        mean count t_critical    se margin_of_error lower_ci higher_ci
+##   &lt;chr&gt;          &lt;dbl&gt; &lt;int&gt;      &lt;dbl&gt; &lt;dbl&gt;           &lt;dbl&gt;    &lt;dbl&gt;     &lt;dbl&gt;
+## 1 Steven Spielb…  7.57    23       2.07 0.145           0.301     7.27      7.87
+## 2 Tim Burton      6.93    16       2.13 0.187           0.399     6.53      7.33</code></pre>
+<p><strong>We calculate the mean, t-critical and confidence intervals for the mean ratings.</strong></p>
+<pre class="r"><code>plot &lt;- ggplot(burton_spielberg, aes(x=mean, y=reorder(director, mean), colour = director))+
+  geom_errorbar(width = 0.05, aes(xmin = lower_ci, xmax = higher_ci), size = 2)+
+  geom_point(aes(x=mean), size = 5)+
+  geom_rect(aes(xmin = max(lower_ci), xmax = min(higher_ci), ymin = Inf, ymax = Inf),
+            fill=&quot;gray&quot;, colour=&quot;gray&quot;,alpha = 0.3)+
+  theme_bw() +
+  geom_text(aes(x=mean, label = round(mean, digits=2)),
+            size = 8, vjust = 2, color = &quot;black&quot;)+
+  geom_text(aes(x=lower_ci, label=round(lower_ci,digits=2)),
+            size = 6, vjust = 2, color = &quot;black&quot;)+
+  geom_text(aes(x=higher_ci, label=round(higher_ci,digits=2)),
+            size = 6, vjust = 2, colour = &quot;black&quot;)+
+  labs(title = &quot;Do Spielberg ad Burton have the same IMDB ratings?&quot;, 
+       subtitle = &quot;95% confidence intervals overlap&quot;, x=&quot;Mean IMDB Rating&quot;, y=&quot;&quot;)+
+  theme(plot.title=element_text(size=12,face=&quot;bold&quot;),
+        axis.text = element_text(size=10),
+        legend.position = &quot;none&quot;)
+plot</code></pre>
+<p><img src="/blogs/blog1_files/figure-html/replicating%20the%20plot-1.png" width="1056" /></p>
+<p><strong>Hypothesis Testing:</strong>
+<strong>Null Hypothesis H0: Difference of avergae ratings of Spielberg and Burton equals 0</strong>
+<strong>Alternative Hypothesis H1: Difference in Means not equal to 0.</strong></p>
+<pre class="r"><code>testrating &lt;- movies %&gt;% 
+  filter(director %in% c(&quot;Steven Spielberg&quot;, &quot;Tim Burton&quot;)) %&gt;% 
+  select(director, rating)
+
+t.test(testrating$rating ~ testrating$director)</code></pre>
+<pre><code>## 
+##  Welch Two Sample t-test
+## 
+## data:  testrating$rating by testrating$director
+## t = 2.7144, df = 30.812, p-value = 0.01078
+## alternative hypothesis: true difference in means between group Steven Spielberg and group Tim Burton is not equal to 0
+## 95 percent confidence interval:
+##  0.1596624 1.1256637
+## sample estimates:
+## mean in group Steven Spielberg       mean in group Tim Burton 
+##                       7.573913                       6.931250</code></pre>
+<p><em>We test the difference between means of the two directors, and the t-stat value equals 3 while the p-value is 0.01. The confidence interval is [0.16,1.13] and does not contain the value 0. The t-statistics value is greater than 2, p-value &lt; 5% and 0 lies outside the confidence interval, therefore we reject H0.</em></p>
+<pre class="r"><code>obs_diff1 &lt;- testrating %&gt;%
+  specify(rating ~ director) %&gt;%
+  calculate(stat = &quot;diff in means&quot;, order = c(&quot;Steven Spielberg&quot;, &quot;Tim Burton&quot;))
+obs_diff1</code></pre>
+<pre><code>## Response: rating (numeric)
+## Explanatory: director (factor)
+## # A tibble: 1 x 1
+##    stat
+##   &lt;dbl&gt;
+## 1 0.643</code></pre>
+<pre class="r"><code>null_dist1 &lt;- testrating %&gt;%
+  # specify variables
+  specify(rating ~ director) %&gt;%
+  
+  # assume independence, i.e, there is no difference
+  hypothesize(null = &quot;independence&quot;) %&gt;%
+  
+  # generate 1000 reps, of type &quot;permute&quot;
+  generate(reps = 1000, type = &quot;permute&quot;) %&gt;%
+  
+  # calculate statistic of difference, namely &quot;diff in means&quot;
+  calculate(stat = &quot;diff in means&quot;, order = c(&quot;Steven Spielberg&quot;, &quot;Tim Burton&quot;))
+
+null_dist1</code></pre>
+<pre><code>## Response: rating (numeric)
+## Explanatory: director (factor)
+## Null Hypothesis: independence
+## # A tibble: 1,000 x 2
+##    replicate     stat
+##        &lt;int&gt;    &lt;dbl&gt;
+##  1         1 -0.184  
+##  2         2 -0.258  
+##  3         3 -0.0992 
+##  4         4 -0.290  
+##  5         5 -0.311  
+##  6         6 -0.364  
+##  7         7  0.282  
+##  8         8  0.219  
+##  9         9 -0.00380
+## 10        10  0.304  
+## # … with 990 more rows</code></pre>
+<pre class="r"><code>ggplot(data = null_dist1, aes(x = stat)) +
+  geom_histogram()+
+  theme_bw()</code></pre>
+<pre><code>## `stat_bin()` using `bins = 30`. Pick better value with `binwidth`.</code></pre>
+<p><img src="/blogs/blog1_files/figure-html/unnamed-chunk-4-1.png" width="1056" /></p>
+<pre class="r"><code>obs_stat1 &lt;- obs_diff1 %&gt;% pull() %&gt;% round(2)
+obs_stat1</code></pre>
+<pre><code>## [1] 0.64</code></pre>
+<pre class="r"><code>null_dist1 %&gt;% visualize() +
+  shade_p_value(obs_stat = obs_diff1, direction = &quot;two-sided&quot;)+
+  theme_bw()</code></pre>
+<p><img src="/blogs/blog1_files/figure-html/unnamed-chunk-6-1.png" width="1056" /></p>
+<pre class="r"><code>null_dist1 %&gt;%
+  get_p_value(obs_stat = obs_diff1, direction = &quot;two_sided&quot;)</code></pre>
+<pre><code>## # A tibble: 1 x 1
+##   p_value
+##     &lt;dbl&gt;
+## 1   0.016</code></pre>
+</div>

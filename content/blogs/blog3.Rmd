@@ -14,4 +14,3 @@ slug: workex
 title: Education and Work Experience
 ---
 
-Write about Edu and Work Ex

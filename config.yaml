@@ -8,7 +8,7 @@ params:
   banner:
     buttonText: Know More About Me
     subtitle: |-
-      Masters in Analytics and Management at the London Business School
+      Here is my portfolio website released under the creative commons
     title: Kashish Yudhviram Solanki
   blog: {}
   contact:
@@ -24,7 +24,7 @@ params:
         title: Email
     enable: yes
     phone:
-      - phone: (000) 7878761401
+      - phone: (+44) 7878761401
         title: Phone
   custom_css: []
   custom_js: []
@@ -43,10 +43,10 @@ params:
     social:
       - icon: fa-github
         label: GitHub
-        url: https://www.github.com
+        url: https://github.com/KashishSolanki16
       - icon: fa-linkedin
         label: LinkedIn
-        url: https://www.linkedin.com
+        url: https://www.linkedin.com/in/kashishsolanki16/
   image: ''
   name: Kashish Solanki
   navigation:
@@ -65,33 +65,29 @@ params:
     enable: yes
     showcase:
       - image: pic01.JPG
-        subtitle: Say Something Nice
+        subtitle: A little about myself 
         title: About Me
         url: blogs/kashish
-      - image: pic02.jpg
-        subtitle: What I bring to the table
+      - image: pic01.jpg
+        subtitle: Economics and Statistics | Analytics and Management |  
         title: Education and Work Experience
         url: blogs/workex
       - image: pic03.jpg
-        subtitle: Travel | Formula One | Freestyle Dancing | Piano
+        subtitle: Piano | Travel | Formula One | Freestyle Dancing 
         title: Hobbies and Interests
         url: blogs/hobbies
       - image: pic04.jpg
-        subtitle: Analytics Project 1
-        title: Dataset
+        subtitle: Analysis of IMDB ratings
+        title: IMDB Ratings Comparison - Spielberg and Burton
         url: blogs/project1
       - image: pic05.jpg
-        subtitle: Analytics Project 2
-        title: Consequat
+        subtitle: Animal rescue dataset
+        title: London Fire Brigade
         url: blogs/project2
       - image: pic06.jpg
-        subtitle: Feugiat Amet Tempus
-        title: Project 3
+        subtitle: Climate Change and Temperature Anomalies 
+        title: Climate Data Analysis
         url: blogs/project3
-      - image: 
-        subtitle: Hello
-        title: Publication
-        url: blogs/pub
   two:
     buttonText: Resume
     enable: yes
