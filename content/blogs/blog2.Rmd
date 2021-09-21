@@ -3,7 +3,7 @@ categories:
 - ""
 - ""
 date: "2017-10-31T22:26:09-05:00"
-description: Lorem Etiam Nullam
+description:
 draft: false
 image: pic12.jpg
 keywords: ""
@@ -11,14 +11,27 @@ slug: hobbies
 title: Hobbies and Interests
 ---
 
-## Freestyle Dancing 
-I am extremely passionate about freestyle dancing, and believe that I have the ability to learn a dance form very quickly. I try to ensure that I take up atleast one dance workshop every month. 
+To find 'free time' in the fast-paced, materialistic world we live in today often seems next to impossible. Personally, I am in awe of the solace my interests bring to me in difficult and trying times, the world faces today. 
+
+## Piano
+After learning the keyboard for more than 10 years, I finally decided to switch to the piano, learn the western notations, and successfully completed Grade 3 of the Trinity College London (School of Music) exams. As I gained confidence with the much heavier keys of the piano as compared to a keyboard, I organized 'jam' sessions and put up my musical pieces on social media. Coming from a family deeply fond of music, I now have my hands on the Ukulele and the Cajon. 
+
+## Formula One
+I am an avid follower of Formula One motorsport to the extent that I merged my interests and ambition to analyze the F1 dataset on R software on a Sunday evening while cheering for Lewis Hamilton with all my heart as he chased victory at the 2020 British Grand Prix with his left-front practically worn out during the last lap.  
+
+
+## Volunteering
+Serving the community using my strengths has always been a fulfilling experience. I put to use my quantitative skills for preparing math lesson plans, evaluations, and study material for the underprivileged during my time as a Student Volunteer at Teach for India. When the pandemic hit, my inclination to teach led me to take math lessons for the child of my house help as he had insufficient access to technology. The ability to modulate my voice encouraged me to contribute to an organization engaged in the creation of audiobooks for the blind. 
+
+## Travel
+I consider myself fortunate enough to tick several countries off my travel list and even double tick a couple of them. All thanks to my parents, one of the most significant international experiences I've had was in 2018 when we boarded an Alaskan Cruise from Seattle, Washington. Although the ride to the Seattle port was bumpy as we met with a road accident, a day at sea helped us deal with the aftermath, heal our bruises and get back on our adventurous experience into the wilderness and breathtaking splendor of America's last frontier - Alaska. A 7-day cruising on the ship 'Celebrity Solstice' gave complete justice to Alaska's towering snow-capped mountains. 
+
+## And more! 
+One would often find me at a Table Tennis play-off, a freestyle-Bollywood dancing workshop or practicing the Sun Salutation to maintain good health and fitness. 
 
 ```{r pic13.JPG, echo=FALSE, out.width="100%"}
 knitr::include_graphics("/img/pic13.JPG", error = FALSE)
 ```
-
-![KYS]("/Users/kashishsolanki/Desktop/website/static/img/pic13.JPG")
 
 
 

@@ -88,10 +88,6 @@ params:
         subtitle: Climate Change and Temperature Anomalies 
         title: Climate Data Analysis
         url: blogs/project3
-      - image: pic08.jpg
-        subtitle: Walmart Data Analysis
-        title: Walmart
-        url: blogs/walmart
   two:
     buttonText: Click to View
     enable: yes

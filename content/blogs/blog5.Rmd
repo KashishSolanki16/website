@@ -3,11 +3,159 @@ categories:
 - ""
 - ""
 date: "2017-10-31T22:42:51-05:00"
-description: "It has been a pleasure working with you"
+description: 
 draft: no
 image: pic09.jpg
 keywords: ""
 slug: walmart
 title: Walmart Data Analysis 
 ---
+
+
+```{r, message = FALSE}
+library(randomForest)
+library(ranger)
+library(caret)
+library(ggplot2)
+library(dplyr)
+library(rpart)
+```
+
+```{r}
+getwd()
+setwd("/Users/kashishsolanki/Desktop/website/data")
+```
+
+#Importing data
+```{r}
+retail_sales <- read_csv("retail_sales.csv")
+```
+
+#eda
+
+```{r}
+head(retail_sales)
+str(retail_sales)
+retail_sales[,c(1,2)]<-lapply(retail_sales[,c(1,2)],as.factor)
+retail_sales$Date<-as.Date(retail_sales$Date)
+View(retail_sales)
+```
+
+#build a tree
+```{r}
+wal_tree<-rpart(Weekly_Sales~.,data = retail_sales,method = "anova")
+plot(retail_sales)
+```
+
+#predict
+
+```{r}
+pred_tree<-predict(wal_tree,newdata=retail_sales)
+error_tree<-pred_tree-retail_sales$Weekly_Sales
+sqrt(mean(error_tree^2))
+summary(retail_sales$Weekly_Sales)
+```
+
+#linear model
+```{r, message=FALSE}
+wal_lm<-lm(retail_sales$Weekly_Sales~.,data = retail_sales)
+summary(wal_lm)
+
+```
+
+#predict
+```{r}
+pred_lm<-predict(wal_lm,newdata = retail_sales)
+error_lm<-pred_lm-retail_sales$Weekly_Sales
+sqrt(mean(error_lm^2))
+```
+
+#train test split
+```{r}
+sample(9)
+```
+
+#shuffle row indices
+
+```{r}
+rows<-sample(nrow(retail_sales))
+
+retail_sales <- retail_sales[rows,]
+head(retail_sales)
+```
+
+#split index
+```{r}
+split<-round(nrow(retail_sales)*0.8)
+```
+
+#create train and test df
+```{r}
+walmart_train<-retail_sales[1:split, ]
+head(walmart_train)
+walmart_test<-retail_sales[(split+1):nrow(retail_sales), ]
+```
+
+#analysing walmart train
+#build a tree
+
+```{r}
+wal_tree<-rpart(Weekly_Sales~.,data = walmart_train,method = "anova")
+plot(wal_tree)
+```
+
+#predict
+```{r}
+pred_train_tree<-predict(wal_tree,newdata=walmart_test)
+error_train_tree<-pred_train_tree-walmart_test$Weekly_Sales
+sqrt(mean(error_train_tree^2))
+summary(walmart_test$Weekly_Sales)
+```
+
+#decreasing error
+```{r}
+wal_tree2<-rpart(Weekly_Sales~.,data = walmart_train,method = "anova",control = rpart.control(maxdepth = 5))
+plot(wal_tree2)
+```
+
+#predict
+
+```{r}
+pred_train_tree<-predict(wal_tree2,newdata=walmart_test)
+error_train_tree<-pred_train_tree-walmart_test$Weekly_Sales
+sqrt(mean(error_train_tree^2))
+summary(walmart_test$Weekly_Sales) 
+```
+
+ 
+```{r}
+wal_tree3<-rpart(Weekly_Sales~.,data = walmart_train,method = "anova",control = rpart.control(minsplit = 1000))
+plot(wal_tree3)
+```
+
+#predict
+
+```{r}
+pred_train_tree<-predict(wal_tree3,newdata=walmart_test)
+error_train_tree<-pred_train_tree-walmart_test$Weekly_Sales
+sqrt(mean(error_train_tree^2))
+summary(walmart_test$Weekly_Sales)  
+```
+
+
+#Randomforest and ranger
+```{r}
+wal_tree4<-ranger(Weekly_Sales~.,walmart_train)
+plot(wal_tree4)
+pred_3<-predict(wal_tree4,walmart_test)
+head(pred_3)
+```
+
+
+```{r}
+error<-pred_3$predictions-walmart_test$Weekly_Sales
+sqrt(mean(error^2))
+```
+
+
 
