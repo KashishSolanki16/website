@@ -5,10 +5,20 @@ categories:
 date: "2017-10-31T22:26:09-05:00"
 description: Lorem Etiam Nullam
 draft: false
-image: pic03.jpg
+image: pic12.jpg
 keywords: ""
 slug: hobbies
 title: Hobbies and Interests
 ---
 
-Hobbies and interests
+## Freestyle Dancing 
+I am extremely passionate about freestyle dancing, and believe that I have the ability to learn a dance form very quickly. I try to ensure that I take up atleast one dance workshop every month. 
+
+```{r pic13.JPG, echo=FALSE, out.width="100%"}
+knitr::include_graphics("/img/pic13.JPG", error = FALSE)
+```
+
+![KYS]("/Users/kashishsolanki/Desktop/website/static/img/pic13.JPG")
+
+
+

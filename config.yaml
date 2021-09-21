@@ -47,7 +47,7 @@ params:
       - icon: fa-linkedin
         label: LinkedIn
         url: https://www.linkedin.com/in/kashishsolanki16/
-  image: 'banner.JPG'
+  image: banner.JPG
   name: Kashish Solanki
   navigation:
     button1:

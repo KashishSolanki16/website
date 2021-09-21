@@ -131,18 +131,18 @@ null_dist1</code></pre>
 ## Explanatory: director (factor)
 ## Null Hypothesis: independence
 ## # A tibble: 1,000 x 2
-##    replicate     stat
-##        &lt;int&gt;    &lt;dbl&gt;
-##  1         1 -0.184  
-##  2         2 -0.258  
-##  3         3 -0.0992 
-##  4         4 -0.290  
-##  5         5 -0.311  
-##  6         6 -0.364  
-##  7         7  0.282  
-##  8         8  0.219  
-##  9         9 -0.00380
-## 10        10  0.304  
+##    replicate    stat
+##        &lt;int&gt;   &lt;dbl&gt;
+##  1         1  0.0492
+##  2         2 -0.491 
+##  3         3 -0.110 
+##  4         4 -0.332 
+##  5         5 -0.290 
+##  6         6  0.282 
+##  7         7  0.272 
+##  8         8 -0.290 
+##  9         9 -0.237 
+## 10        10  0.0174
 ## # … with 990 more rows</code></pre>
 <pre class="r"><code>ggplot(data = null_dist1, aes(x = stat)) +
   geom_histogram()+
@@ -161,5 +161,5 @@ obs_stat1</code></pre>
 <pre><code>## # A tibble: 1 x 1
 ##   p_value
 ##     &lt;dbl&gt;
-## 1   0.016</code></pre>
+## 1   0.008</code></pre>
 </div>
