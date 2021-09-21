@@ -5,9 +5,16 @@ categories:
 date: "2017-10-31T22:42:51-05:00"
 description: "It has been a pleasure working with you"
 draft: false
-image: pic07.jpg
+image: pic11.JPG
 keywords: ""
 slug: kashish
-title: About Me
+title: About Kashish Solanki
 ---
+
+Born and brought up in Mumbai, India I am a 21 year old recent graduate currently reading for my Masters in Analytics and Management at the London Business School. I completed my schooling at Apeejay School in India and went on to study Economics and Statistics at St. Xavier's College, Mumbai and completed my undergraduate study with a distinction and at the top of my class. 
+
+I believe I have always been ambitious, a quick-learner and passionate about building new and innovative products. Post my masters at the London Business School, I aspire to work at the intersection of consulting and tech and in the long run see myself as a successful woman entrepreneur. 
+
+Something that I would love to abide by all my life - Excellence > Success. 
+
 

@@ -6,7 +6,7 @@ googleAnalytics: ''
 disqusShortname: ''
 params:
   banner:
-    buttonText: Know More About Me
+    buttonText: Know More
     subtitle: |-
       Here is my portfolio website released under the creative commons
     title: Kashish Yudhviram Solanki
@@ -47,7 +47,7 @@ params:
       - icon: fa-linkedin
         label: LinkedIn
         url: https://www.linkedin.com/in/kashishsolanki16/
-  image: ''
+  image: 'banner.JPG'
   name: Kashish Solanki
   navigation:
     button1:
@@ -64,11 +64,11 @@ params:
   tiles:
     enable: yes
     showcase:
-      - image: pic01.JPG
-        subtitle: A little about myself 
+      - image: pic02.jpg
+        subtitle: Know More About Me
         title: About Me
         url: blogs/kashish
-      - image: pic01.jpg
+      - image: pic04.jpg  
         subtitle: Economics and Statistics | Analytics and Management |  
         title: Education and Work Experience
         url: blogs/workex
@@ -76,21 +76,25 @@ params:
         subtitle: Piano | Travel | Formula One | Freestyle Dancing 
         title: Hobbies and Interests
         url: blogs/hobbies
-      - image: pic04.jpg
+      - image: pic05.jpg
         subtitle: Analysis of IMDB ratings
         title: IMDB Ratings Comparison - Spielberg and Burton
         url: blogs/project1
-      - image: pic05.jpg
+      - image: pic06.jpg
         subtitle: Animal rescue dataset
         title: London Fire Brigade
         url: blogs/project2
-      - image: pic06.jpg
+      - image: pic07.jpg
         subtitle: Climate Change and Temperature Anomalies 
         title: Climate Data Analysis
         url: blogs/project3
+      - image: pic08.jpg
+        subtitle: Walmart Data Analysis
+        title: Walmart
+        url: blogs/walmart
   two:
-    buttonText: Resume
+    buttonText: Click to View
     enable: yes
     subtitle: 
-    title: Here's my resume for your reference
+    title: Resume
     url: https://drive.google.com/file/d/1t30QDmrlnLumjmsS-M-iOweIYulPnc_U/view?usp=sharing
