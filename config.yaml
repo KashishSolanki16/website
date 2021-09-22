@@ -15,7 +15,7 @@ params:
     address:
       - city: London, NW1 6EW
         country: United Kingdom
-        street: Westminister
+        street: Westminster
         title: 38 Marys Court, 4 Palgrave Gardens
     buttonClear: Clear
     buttonSend: Send message

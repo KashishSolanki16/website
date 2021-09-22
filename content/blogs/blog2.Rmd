@@ -29,9 +29,7 @@ I consider myself fortunate enough to tick several countries off my travel list 
 ## And more! 
 One would often find me at a Table Tennis play-off, a freestyle-Bollywood dancing workshop or practicing the Sun Salutation to maintain good health and fitness. 
 
-```{r pic13.JPG, echo=FALSE, out.width="100%"}
-knitr::include_graphics("/img/pic13.JPG", error = FALSE)
-```
+
 
 
 
