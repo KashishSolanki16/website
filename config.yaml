@@ -13,10 +13,10 @@ params:
   blog: {}
   contact:
     address:
-      - city: London, NW1 6EW
+      - city: London, NW1 4SA
         country: United Kingdom
-        street: Westminster
-        title: 38 Marys Court, 4 Palgrave Gardens
+        street: Regents Park
+        title: London Business School
     buttonClear: Clear
     buttonSend: Send message
     email:
@@ -24,7 +24,7 @@ params:
         title: Email
     enable: yes
     phone:
-      - phone: (+44) 7878761401
+      - phone: 020 7000 7000
         title: Phone
   custom_css: []
   custom_js: []
